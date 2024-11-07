@@ -13,18 +13,19 @@ const Floor: React.FC = () => {
   const navigate = useNavigate();
 
   const thisFloor = getFloorByIndex(floorIndex);
-  const currentRole = useSelector((state: { role: string }) => state.role);
-  const thisFloorActivity: string = thisFloor?.activity || "";
+  const currentRole = useSelector((state:{ role:{Role:string}}) =>{    
+    return state.role.Role
+});  const thisFloorActivity: string = thisFloor?.activity || "";
   const activities = getListOfActivities();
   console.log(thisFloorActivity);
   
   const handleClick = () => {
     const isVerified = useIsVerified({ activity: thisFloorActivity, role: currentRole, activities });
-    // if (isVerified) {
-    //   alert(`You are currently ${thisFloorActivity}`);
-    // } else {
-    //   navigate("/forbidden");
-    // }
+    if (isVerified) {
+      alert(`You are currently ${thisFloorActivity}`);
+    } else {
+      navigate("/forbidden");
+    }
   };
 
   return (
